@@ -25,27 +25,27 @@ def inference(model_inputs:dict) -> dict:
     with open('input.mp3','wb') as file:
         file.write(mp3Bytes.getbuffer())
     
-    audio = whisper.load_audio("input.mp3")
+    # audio = whisper.load_audio("input.mp3")
 
-    # make log-Mel spectrogram and move to the same device as the model
-    mel = whisper.log_mel_spectrogram(audio).to(model.device)
+    # # make log-Mel spectrogram and move to the same device as the model
+    # mel = whisper.log_mel_spectrogram(audio).to(model.device)
 
-    # detect the spoken language
-    _, probs = model.detect_language(mel)
-    lang = max(probs, key=probs.get)
-    print(f"Detected language: {lang}")
+    # # detect the spoken language
+    # _, probs = model.detect_language(mel)
+    # lang = max(probs, key=probs.get)
+    # print(f"Detected language: {lang}")
 
-    # decode the audio
-    options = whisper.DecodingOptions()
-    result = whisper.decode(model, mel, options)
+    # # decode the audio
+    # options = whisper.DecodingOptions()
+    # result = whisper.decode(model, mel, options)
 
-    # print the recognized text
-    output = {"text":result["text"], "lang":lang}
-    os.remove("input.mp3")
-    
-    # # Run the model
-    # result = model.transcribe("input.mp3")
-    # output = {"text":result["text"]}
+    # # print the recognized text
+    # output = {"text":result["text"], "lang":lang}
     # os.remove("input.mp3")
+    
+    # Run the model
+    result = model.transcribe("input.mp3")
+    output = {"text":result["text"]}
+    os.remove("input.mp3")
     # Return the results as a dictionary
     return output
