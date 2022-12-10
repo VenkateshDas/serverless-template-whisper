@@ -9,7 +9,7 @@ from io import BytesIO
 def init():
     global model
     # Load the model
-    model = whisper.load_model("large-v2")
+    model = whisper.load_model("base")
 
 # Inference is ran for every server call
 # Reference your preloaded global model variable here.
